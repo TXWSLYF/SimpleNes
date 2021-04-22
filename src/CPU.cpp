@@ -5,6 +5,7 @@ namespace mysn
     CPU::CPU() : program_counter(0),
                  register_a(0),
                  register_x(0),
+                 register_y(0),
                  status(0),
                  memory(0xFFFF, 0){};
 
@@ -12,21 +13,55 @@ namespace mysn
     {
         while (true)
         {
+            // 操作码
             auto opscode = mem_read(program_counter);
             ++program_counter;
 
             switch (opscode)
             {
+            /* LDA */
             case 0xA9:
             {
-                auto param = mem_read(program_counter);
+                lda(AddressingMode::Immediate);
                 ++program_counter;
-
-                lda(param);
 
                 break;
             }
 
+            case 0xA5:
+            {
+                lda(AddressingMode::ZeroPage);
+                ++program_counter;
+
+                break;
+            }
+
+            case 0xAD:
+            {
+                lda(AddressingMode::Absolute);
+                program_counter += 2;
+
+                break;
+            }
+
+            /* STA */
+            case 0x85:
+            {
+                sta(AddressingMode::ZeroPage);
+                ++program_counter;
+
+                break;
+            }
+
+            case 0x95:
+            {
+                sta(AddressingMode::ZeroPage_X);
+                ++program_counter;
+
+                break;
+            }
+
+            /* TAX */
             case 0xAA:
             {
                 tax();
@@ -34,6 +69,7 @@ namespace mysn
                 break;
             }
 
+            /* INX */
             case 0xE8:
             {
                 inx();
@@ -41,6 +77,7 @@ namespace mysn
                 break;
             }
 
+            /* BRK */
             case 0x00:
             {
                 return;
@@ -49,10 +86,20 @@ namespace mysn
         }
     }
 
-    void CPU::lda(Byte value)
+    void CPU::lda(AddressingMode mode)
     {
+        auto addr = get_operand_address(mode);
+        auto value = mem_read(addr);
+
         register_a = value;
         update_zero_and_negative_flags(register_a);
+    }
+
+    void CPU::sta(AddressingMode mode)
+    {
+        auto addr = get_operand_address(mode);
+
+        mem_write(addr, register_a);
     }
 
     void CPU::tax()
@@ -115,10 +162,7 @@ namespace mysn
 
     DobuleByte CPU::mem_read_u16(Address addr)
     {
-        DobuleByte low = DobuleByte(mem_read(addr));
-        DobuleByte high = DobuleByte(mem_read(addr + 1));
-
-        return high << 8 | low;
+        return mem_read(addr) | mem_read(addr + 1) << 8;
     }
 
     void CPU::mem_write_u16(Address addr, DobuleByte data)
@@ -150,6 +194,7 @@ namespace mysn
     {
         register_a = 0;
         register_x = 0;
+        register_y = 0;
         status = 0;
 
         program_counter = mem_read_u16(0xFFFC);
@@ -161,5 +206,83 @@ namespace mysn
         reset();
         run();
     }
+
+    Address CPU::get_operand_address(AddressingMode mode)
+    {
+        switch (mode)
+        {
+        case AddressingMode::Immediate:
+        {
+            return program_counter;
+        }
+
+        case AddressingMode::ZeroPage:
+        {
+
+            return Address(mem_read(program_counter));
+        }
+
+        case AddressingMode::Absolute:
+        {
+
+            return mem_read_u16(program_counter);
+        }
+
+        case AddressingMode::ZeroPage_X:
+        {
+            auto pos = mem_read(program_counter);
+            Address addr = Address(pos) + Address(register_x);
+
+            return addr;
+        }
+
+        case AddressingMode::ZeroPage_Y:
+        {
+            auto pos = mem_read(program_counter);
+            Address addr = Address(pos) + Address(register_y);
+
+            return addr;
+
+            break;
+        }
+
+        case AddressingMode::Absolute_X:
+        {
+            auto base = mem_read_u16(program_counter);
+            Address addr = base + register_x;
+
+            return addr;
+        }
+
+        case AddressingMode::Absolute_Y:
+        {
+            auto base = mem_read_u16(program_counter);
+            Address addr = base + register_y;
+
+            return addr;
+        }
+
+        case AddressingMode::Indirect_X:
+        {
+            auto base = mem_read(program_counter);
+            auto ptr = Byte(base + register_x);
+            DobuleByte lo = DobuleByte(mem_read(ptr));
+            DobuleByte hi = DobuleByte(Byte(ptr + 1));
+
+            return lo | hi << 8;
+        }
+
+        case AddressingMode::Indirect_Y:
+        {
+            auto base = mem_read(program_counter);
+            auto lo = mem_read(base);
+            auto hi = mem_read(base + 1);
+            auto deref_base = lo | hi << 8;
+            auto deref = register_y + deref_base;
+
+            return deref;
+        }
+        }
+    };
 
 }

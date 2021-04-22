@@ -58,6 +58,17 @@ void test_5_ops_working_together()
     assert(cpu.get_register_x() == 0xc1);
 }
 
+void test_lda_from_memory()
+{
+    mysn::CPU cpu = mysn::CPU();
+    cpu.mem_write(0x10, 0x55);
+    vector<uint8_t> program = {0xa5, 0x10, 0x00};
+
+    cpu.load_and_run(program);
+
+    assert(cpu.get_register_a() == 0x55);
+}
+
 int main()
 {
     test_0xa9_lda_immidiate_load_data();
@@ -65,4 +76,5 @@ int main()
     test_0xaa_tax_move_a_to_x();
     test_inx_overflow();
     test_5_ops_working_together();
+    test_lda_from_memory();
 }
