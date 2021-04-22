@@ -6,30 +6,40 @@
 
 namespace mysn
 {
+    using Byte = std::uint8_t;
+    using Address = std::uint16_t;
+
     class CPU
     {
     private:
-        std::uint16_t program_counter;
-        std::uint8_t register_a;
-        std::uint8_t register_x;
+        Address program_counter;
+        Byte register_a;
+        Byte register_x;
 
         // Status flags
-        std::uint8_t status;
+        Byte status;
 
-        void update_zero_and_negative_flags(std::uint8_t result);
-        void lda(std::uint8_t value);
+        std::vector<Byte> memory;
+
+        void update_zero_and_negative_flags(Byte result);
+        void lda(Byte value);
         void tax();
         void inx();
+
+        Byte mem_read(Address addr);
+        void mem_write(Address addr, Byte data);
+        void load(std::vector<Byte> &program);
+        void run();
 
     public:
         CPU();
 
-        void interpret(std::vector<std::uint8_t> &program);
+        Byte get_register_a();
+        Byte get_register_x();
 
-        std::uint8_t get_register_a();
-        std::uint8_t get_register_x();
+        Byte get_status();
 
-        std::uint8_t get_status();
+        void load_and_run(std::vector<Byte> &program);
     };
 }
 
