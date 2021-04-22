@@ -8,6 +8,7 @@ namespace mysn
 {
     using Byte = std::uint8_t;
     using Address = std::uint16_t;
+    using DobuleByte = std::uint16_t;
 
     class CPU
     {
@@ -28,8 +29,11 @@ namespace mysn
 
         Byte mem_read(Address addr);
         void mem_write(Address addr, Byte data);
+        DobuleByte mem_read_u16(Address addr);
+        void mem_write_u16(Address addr, DobuleByte data);
         void load(std::vector<Byte> &program);
         void run();
+        void reset();
 
     public:
         CPU();

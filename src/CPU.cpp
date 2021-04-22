@@ -113,10 +113,26 @@ namespace mysn
         memory[addr] = data;
     }
 
+    DobuleByte CPU::mem_read_u16(Address addr)
+    {
+        DobuleByte low = DobuleByte(mem_read(addr));
+        DobuleByte high = DobuleByte(mem_read(addr + 1));
+
+        return high << 8 | low;
+    }
+
+    void CPU::mem_write_u16(Address addr, DobuleByte data)
+    {
+        Byte low = Byte(data & 0xff);
+        Byte high = Byte(data >> 8);
+
+        mem_write(addr, low);
+        mem_write(addr + 1, high);
+    }
+
     void CPU::load(std::vector<Byte> &program)
     {
         Address start = 0x8000;
-        program_counter = start;
 
         // 程序数据（Program ROM/PRG ROM），存储在插入的墨盒中（Cartridges），存储的是游戏的代码
         // 从内存地址的 0x8000 开始装载
@@ -126,11 +142,23 @@ namespace mysn
             memory[start] = i;
             ++start;
         }
+
+        mem_write_u16(0xFFFC, 0x8000);
+    }
+
+    void CPU::reset()
+    {
+        register_a = 0;
+        register_x = 0;
+        status = 0;
+
+        program_counter = mem_read_u16(0xFFFC);
     }
 
     void CPU::load_and_run(std::vector<Byte> &program)
     {
         load(program);
+        reset();
         run();
     }
 
