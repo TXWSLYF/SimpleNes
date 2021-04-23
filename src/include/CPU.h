@@ -25,20 +25,26 @@ namespace mysn
         NoneAddressing,
     };
 
+    enum CpuFlags
+    {
+        Carry = 0b00000001,
+        Zero = 0b00000010,
+        Interrupt_Disable = 0b00000100,
+        Decimal_Mode = 0b00001000,
+        Break = 0b00010000,
+        Break2 = 0b00100000,
+        Overflow = 0b01000000,
+        Negative = 0b10000000,
+    };
+
     class CPU
     {
     private:
-        Address program_counter;
-        Byte register_a;
-        Byte register_x;
-        Byte register_y;
-
-        // Status flags
-        Byte status;
-
         std::vector<Byte> memory;
 
         void update_zero_and_negative_flags(Byte result);
+
+        void adc(AddressingMode mode);
         void lda(AddressingMode mode);
         void sta(AddressingMode mode);
         void tax();
@@ -57,10 +63,13 @@ namespace mysn
     public:
         CPU();
 
-        Byte get_register_a();
-        Byte get_register_x();
+        Address program_counter;
+        Byte register_a;
+        Byte register_x;
+        Byte register_y;
 
-        Byte get_status();
+        // Status flags
+        Byte status;
 
         void load_and_run(std::vector<Byte> &program);
         void mem_write(Address addr, Byte data);

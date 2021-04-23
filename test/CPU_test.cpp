@@ -12,8 +12,8 @@ void test_0xa9_lda_immidiate_load_data()
 
     cpu.load_and_run(program);
 
-    assert(cpu.get_register_a() == 0x05);
-    assert(cpu.get_status() == 0x00000000);
+    assert(cpu.register_a == 0x05);
+    assert(cpu.status == 0x00000000);
 }
 
 void test_0xa9_lda_zero_flag()
@@ -23,8 +23,8 @@ void test_0xa9_lda_zero_flag()
 
     cpu.load_and_run(program);
 
-    assert(cpu.get_register_a() == 0b00);
-    assert(cpu.get_status() == 0b00000010);
+    assert(cpu.register_a == 0b00);
+    assert(cpu.status == 0b00000010);
 }
 
 void test_0xaa_tax_move_a_to_x()
@@ -34,8 +34,8 @@ void test_0xaa_tax_move_a_to_x()
 
     cpu.load_and_run(program);
 
-    assert(cpu.get_register_a() == 0x05);
-    assert(cpu.get_register_x() == 0x05);
+    assert(cpu.register_a == 0x05);
+    assert(cpu.register_x == 0x05);
 }
 
 void test_inx_overflow()
@@ -45,7 +45,7 @@ void test_inx_overflow()
 
     cpu.load_and_run(program);
 
-    assert(cpu.get_register_x() == 1);
+    assert(cpu.register_x == 1);
 }
 
 void test_5_ops_working_together()
@@ -55,7 +55,7 @@ void test_5_ops_working_together()
 
     cpu.load_and_run(program);
 
-    assert(cpu.get_register_x() == 0xc1);
+    assert(cpu.register_x == 0xc1);
 }
 
 void test_lda_from_memory()
@@ -66,7 +66,41 @@ void test_lda_from_memory()
 
     cpu.load_and_run(program);
 
-    assert(cpu.get_register_a() == 0x55);
+    assert(cpu.register_a == 0x55);
+}
+
+void test_adc()
+{
+    mysn::CPU cpu = mysn::CPU();
+
+    /**
+        ADC #255
+        BRK
+     */
+    vector<uint8_t> program1 = {0x69, 0xff, 0x00};
+    cpu.load_and_run(program1);
+    assert(cpu.register_a == 0xff);
+    assert(cpu.status == 0b10000000);
+
+    /**
+        ADC #255
+        ADC #255
+        BRK
+     */
+    vector<uint8_t> program2 = {0x69, 0xff, 0x69, 0xff, 0x00};
+    cpu.load_and_run(program2);
+    assert(cpu.register_a == 0xfe);
+    assert(cpu.status == 0b10000001);
+
+    /**
+        ADC $00
+        ADC #127
+        BRK
+     */
+    vector<uint8_t> program3 = {0x65, 0x00, 0x69, 0x7f, 0x00};
+    cpu.load_and_run(program3);
+    assert(cpu.register_a == 0x7f);
+    assert(cpu.status == 0b00000000);
 }
 
 int main()
@@ -77,4 +111,6 @@ int main()
     test_inx_overflow();
     test_5_ops_working_together();
     test_lda_from_memory();
+
+    test_adc();
 }

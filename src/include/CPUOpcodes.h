@@ -10,6 +10,7 @@ namespace mysn
 {
     enum CPUOpcodeMnemonics
     {
+        ADC,
         BRK,
         TAX,
         INX,

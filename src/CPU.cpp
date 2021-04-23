@@ -33,6 +33,12 @@ namespace mysn
 
             switch (mnemonic)
             {
+            case CPUOpcodeMnemonics::ADC:
+            {
+                adc(mode);
+                break;
+            }
+
             case CPUOpcodeMnemonics::LDA:
             {
                 lda(mode);
@@ -68,6 +74,35 @@ namespace mysn
                 program_counter += (len - 1);
             }
         }
+    }
+
+    void CPU::adc(AddressingMode mode)
+    {
+        auto addr = get_operand_address(mode);
+        auto value = mem_read(addr);
+
+        std::uint16_t sum = register_a + value + (status & CpuFlags::Carry);
+
+        if (sum & 0x100)
+        {
+            status = status | CpuFlags::Carry;
+        }
+        else
+        {
+            status = status & (~CpuFlags::Carry);
+        }
+
+        if ((register_a ^ sum) & (value ^ sum) & 0x80)
+        {
+            status = status | CpuFlags::Overflow;
+        }
+        else
+        {
+            status = status & (~CpuFlags::Overflow);
+        }
+
+        register_a = static_cast<Byte>(sum);
+        update_zero_and_negative_flags(register_a);
     }
 
     void CPU::lda(AddressingMode mode)
@@ -117,21 +152,6 @@ namespace mysn
         {
             status = status & 0b01111111;
         }
-    };
-
-    Byte CPU::get_register_a()
-    {
-        return register_a;
-    };
-
-    Byte CPU::get_register_x()
-    {
-        return register_x;
-    };
-
-    Byte CPU::get_status()
-    {
-        return status;
     };
 
     Byte CPU::mem_read(Address addr)
