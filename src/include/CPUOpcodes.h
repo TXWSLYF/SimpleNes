@@ -11,6 +11,7 @@ namespace mysn
     enum CPUOpcodeMnemonics
     {
         ADC,
+        AND,
         BRK,
         TAX,
         INX,

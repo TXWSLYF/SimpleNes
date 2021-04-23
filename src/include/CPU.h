@@ -45,6 +45,7 @@ namespace mysn
         void update_zero_and_negative_flags(Byte result);
 
         void adc(AddressingMode mode);
+        void i_and(AddressingMode mode);
         void lda(AddressingMode mode);
         void sta(AddressingMode mode);
         void tax();

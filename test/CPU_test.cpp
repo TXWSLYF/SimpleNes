@@ -103,6 +103,31 @@ void test_adc()
     assert(cpu.status == 0b00000000);
 }
 
+void test_and()
+{
+    mysn::CPU cpu = mysn::CPU();
+
+    /**
+        LDA #$01
+        AND #234
+        BRK
+     */
+    vector<uint8_t> program1 = {0xa9, 0x01, 0x29, 0xea, 0x00};
+    cpu.load_and_run(program1);
+    assert(cpu.register_a == 0x00);
+    assert(cpu.status == 0b00000010);
+
+    /**
+        LDA #$ff
+        AND #255
+        BRK
+     */
+    vector<uint8_t> program2 = {0xa9, 0xff, 0x29, 0xff, 0x00};
+    cpu.load_and_run(program2);
+    assert(cpu.register_a == 0xff);
+    assert(cpu.status == 0b10000000);
+}
+
 int main()
 {
     test_0xa9_lda_immidiate_load_data();
@@ -113,4 +138,5 @@ int main()
     test_lda_from_memory();
 
     test_adc();
+    test_and();
 }

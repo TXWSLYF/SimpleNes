@@ -39,6 +39,12 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::AND:
+            {
+                i_and(mode);
+                break;
+            }
+
             case CPUOpcodeMnemonics::LDA:
             {
                 lda(mode);
@@ -102,6 +108,15 @@ namespace mysn
         }
 
         register_a = static_cast<Byte>(sum);
+        update_zero_and_negative_flags(register_a);
+    }
+
+    void CPU::i_and(AddressingMode mode)
+    {
+        auto addr = get_operand_address(mode);
+        auto value = mem_read(addr);
+
+        register_a = register_a & value;
         update_zero_and_negative_flags(register_a);
     }
 
