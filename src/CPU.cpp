@@ -1,4 +1,6 @@
 #include "CPU.h"
+#include <iostream>
+#include <CPUOpcodes.h>
 
 namespace mysn
 {
@@ -14,74 +16,56 @@ namespace mysn
         while (true)
         {
             // 操作码
-            auto opscode = mem_read(program_counter);
+            auto code = mem_read(program_counter);
             ++program_counter;
+            auto program_counter_state = program_counter;
+            auto opcode = CPUOpcodes::CPU_OPS_CODES_MAP.find(code);
 
-            switch (opscode)
-            {
-            /* LDA */
-            case 0xA9:
-            {
-                lda(AddressingMode::Immediate);
-                ++program_counter;
-
-                break;
-            }
-
-            case 0xA5:
-            {
-                lda(AddressingMode::ZeroPage);
-                ++program_counter;
-
-                break;
-            }
-
-            case 0xAD:
-            {
-                lda(AddressingMode::Absolute);
-                program_counter += 2;
-
-                break;
-            }
-
-            /* STA */
-            case 0x85:
-            {
-                sta(AddressingMode::ZeroPage);
-                ++program_counter;
-
-                break;
-            }
-
-            case 0x95:
-            {
-                sta(AddressingMode::ZeroPage_X);
-                ++program_counter;
-
-                break;
-            }
-
-            /* TAX */
-            case 0xAA:
-            {
-                tax();
-
-                break;
-            }
-
-            /* INX */
-            case 0xE8:
-            {
-                inx();
-
-                break;
-            }
-
-            /* BRK */
-            case 0x00:
+            // 判断操作码是否存在
+            if (opcode == CPUOpcodes::CPU_OPS_CODES_MAP.end())
             {
                 return;
             }
+
+            auto mnemonic = (opcode->second).mnemonic;
+            auto mode = (opcode->second).mode;
+            auto len = (opcode->second).len;
+
+            switch (mnemonic)
+            {
+            case CPUOpcodeMnemonics::LDA:
+            {
+                lda(mode);
+                break;
+            }
+
+            case CPUOpcodeMnemonics::STA:
+            {
+                sta(mode);
+                break;
+            }
+
+            case CPUOpcodeMnemonics::TAX:
+            {
+                tax();
+                break;
+            }
+
+            case CPUOpcodeMnemonics::INX:
+            {
+                inx();
+                break;
+            }
+
+            case CPUOpcodeMnemonics::BRK:
+            {
+                return;
+            }
+            }
+
+            if (program_counter_state == program_counter)
+            {
+                program_counter += (len - 1);
             }
         }
     }
@@ -281,6 +265,12 @@ namespace mysn
             auto deref = register_y + deref_base;
 
             return deref;
+        }
+
+        case AddressingMode::NoneAddressing:
+        {
+            std::cout << mode << "is not supported" << std::endl;
+            abort();
         }
         }
     };

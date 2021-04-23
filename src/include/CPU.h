@@ -22,6 +22,7 @@ namespace mysn
         Absolute_Y,
         Indirect_X,
         Indirect_Y,
+        NoneAddressing,
     };
 
     class CPU

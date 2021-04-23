@@ -61,6 +61,8 @@
         "vector": "cpp",
         "__cxx_version": "cpp",
         "memory_resource": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "map": "cpp",
+        "__tree": "cpp"
     }
 }
