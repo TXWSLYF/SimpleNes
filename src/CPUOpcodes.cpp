@@ -36,6 +36,12 @@ namespace mysn
         {0x21, CPUOpcodes(0x21, CPUOpcodeMnemonics::AND, 2, 6, AddressingMode::Indirect_X)},
         {0x31, CPUOpcodes(0x31, CPUOpcodeMnemonics::AND, 2, 5 /*+1 if page crossed*/, AddressingMode::Indirect_Y)},
 
+        {0x0A, CPUOpcodes(0x0A, CPUOpcodeMnemonics::ASL, 1, 2, AddressingMode::Accumulator)},
+        {0x06, CPUOpcodes(0x06, CPUOpcodeMnemonics::ASL, 2, 5, AddressingMode::ZeroPage)},
+        {0x16, CPUOpcodes(0x16, CPUOpcodeMnemonics::ASL, 2, 6, AddressingMode::ZeroPage_X)},
+        {0x0E, CPUOpcodes(0x0E, CPUOpcodeMnemonics::ASL, 3, 6, AddressingMode::Absolute)},
+        {0x1E, CPUOpcodes(0x1E, CPUOpcodeMnemonics::ASL, 3, 7, AddressingMode::Absolute_X)},
+
         {0x00, CPUOpcodes(0x00, CPUOpcodeMnemonics::BRK, 1, 7, AddressingMode::NoneAddressing)},
         {0xaa, CPUOpcodes(0xaa, CPUOpcodeMnemonics::TAX, 1, 2, AddressingMode::NoneAddressing)},
         {0xe8, CPUOpcodes(0xe8, CPUOpcodeMnemonics::INX, 1, 2, AddressingMode::NoneAddressing)},

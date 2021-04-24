@@ -128,6 +128,34 @@ void test_and()
     assert(cpu.status == 0b10000000);
 }
 
+void test_asl()
+{
+    mysn::CPU cpu = mysn::CPU();
+
+    /**
+        LDA #$ff
+        AND #255
+        ASL A
+        BRK
+     */
+    vector<uint8_t> program1 = {0xa9, 0xff, 0x29, 0xff, 0x0a, 0x00};
+    cpu.load_and_run(program1);
+    assert(cpu.register_a == 0xfe);
+    assert(cpu.status == 0b10000001);
+
+    /**
+        LDA #$aa
+        STA $aa
+        ASL $aa
+        BRK
+     */
+    vector<uint8_t> program2 = {0xa9, 0xaa, 0x85, 0xaa, 0x06, 0xaa, 0x00};
+    cpu.load_and_run(program2);
+    assert(cpu.register_a == 0xaa);
+    assert(cpu.status == 0b00000001);
+    assert(cpu.mem_read(0xaa) == 0x54);
+}
+
 int main()
 {
     test_0xa9_lda_immidiate_load_data();
@@ -139,4 +167,5 @@ int main()
 
     test_adc();
     test_and();
+    test_asl();
 }

@@ -45,6 +45,20 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::ASL:
+            {
+                if (mode == AddressingMode::Accumulator)
+                {
+                    i_asl_accumulator();
+                }
+                else
+                {
+
+                    i_asl(mode);
+                }
+                break;
+            }
+
             case CPUOpcodeMnemonics::LDA:
             {
                 lda(mode);
@@ -118,6 +132,40 @@ namespace mysn
 
         register_a = register_a & value;
         update_zero_and_negative_flags(register_a);
+    }
+
+    void CPU::i_asl_accumulator()
+    {
+        if (register_a & 0x80)
+        {
+            status = status | CpuFlags::Carry;
+        }
+        else
+        {
+            status = status & (~CpuFlags::Carry);
+        }
+
+        register_a = register_a << 1;
+        update_zero_and_negative_flags(register_a);
+    }
+
+    void CPU::i_asl(AddressingMode mode)
+    {
+        auto addr = get_operand_address(mode);
+        auto value = mem_read(addr);
+
+        if (value & 0x80)
+        {
+            status = status | CpuFlags::Carry;
+        }
+        else
+        {
+            status = status & (~CpuFlags::Carry);
+        }
+
+        value = value << 1;
+        mem_write(addr, value);
+        update_zero_and_negative_flags(value);
     }
 
     void CPU::lda(AddressingMode mode)
@@ -230,6 +278,11 @@ namespace mysn
     {
         switch (mode)
         {
+        case AddressingMode::Accumulator:
+        {
+            abort();
+        };
+
         case AddressingMode::Immediate:
         {
             return program_counter;

@@ -13,6 +13,7 @@ namespace mysn
     // 寻址模式，指示 CPU 该如何处理操作码的后 1~2 个字节（Byte）
     enum AddressingMode
     {
+        Accumulator,
         Immediate,
         ZeroPage,
         ZeroPage_X,
@@ -46,12 +47,13 @@ namespace mysn
 
         void adc(AddressingMode mode);
         void i_and(AddressingMode mode);
+        void i_asl(AddressingMode mode);
+        void i_asl_accumulator();
         void lda(AddressingMode mode);
         void sta(AddressingMode mode);
         void tax();
         void inx();
 
-        Byte mem_read(Address addr);
         DobuleByte mem_read_u16(Address addr);
         void mem_write_u16(Address addr, DobuleByte data);
         void load(std::vector<Byte> &program);
@@ -74,6 +76,7 @@ namespace mysn
 
         void load_and_run(std::vector<Byte> &program);
         void mem_write(Address addr, Byte data);
+        Byte mem_read(Address addr);
     };
 }
 
