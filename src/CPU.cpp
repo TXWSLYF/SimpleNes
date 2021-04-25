@@ -132,6 +132,12 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::BVS:
+            {
+                branch(contain_flag(CpuFlags::Overflow));
+                break;
+            }
+
             case CPUOpcodeMnemonics::LDA:
             {
                 lda(mode);

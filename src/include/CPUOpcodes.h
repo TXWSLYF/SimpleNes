@@ -26,6 +26,7 @@ namespace mysn
         BRK,
 
         BVC,
+        BVS,
 
         TAX,
         INX,
