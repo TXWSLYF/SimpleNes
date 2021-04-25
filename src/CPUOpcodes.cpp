@@ -62,6 +62,15 @@ namespace mysn
         {0x58, CPUOpcodes(0x58, CPUOpcodeMnemonics::CLI, 1, 2, AddressingMode::NoneAddressing)},
         {0xB8, CPUOpcodes(0xB8, CPUOpcodeMnemonics::CLV, 1, 2, AddressingMode::NoneAddressing)},
 
+        {0xc9, CPUOpcodes(0xc9, CPUOpcodeMnemonics::CMP, 2, 2, AddressingMode::Immediate)},
+        {0xc5, CPUOpcodes(0xc5, CPUOpcodeMnemonics::CMP, 2, 3, AddressingMode::ZeroPage)},
+        {0xd5, CPUOpcodes(0xd5, CPUOpcodeMnemonics::CMP, 2, 4, AddressingMode::ZeroPage_X)},
+        {0xcd, CPUOpcodes(0xcd, CPUOpcodeMnemonics::CMP, 3, 4, AddressingMode::Absolute)},
+        {0xdd, CPUOpcodes(0xdd, CPUOpcodeMnemonics::CMP, 3, 4 /*+1 if page crossed*/, AddressingMode::Absolute_X)},
+        {0xd9, CPUOpcodes(0xd9, CPUOpcodeMnemonics::CMP, 3, 4 /*+1 if page crossed*/, AddressingMode::Absolute_Y)},
+        {0xc1, CPUOpcodes(0xc1, CPUOpcodeMnemonics::CMP, 2, 6, AddressingMode::Indirect_X)},
+        {0xd1, CPUOpcodes(0xd1, CPUOpcodeMnemonics::CMP, 2, 5 /*+1 if page crossed*/, AddressingMode::Indirect_Y)},
+
         {0xaa, CPUOpcodes(0xaa, CPUOpcodeMnemonics::TAX, 1, 2, AddressingMode::NoneAddressing)},
         {0xe8, CPUOpcodes(0xe8, CPUOpcodeMnemonics::INX, 1, 2, AddressingMode::NoneAddressing)},
 

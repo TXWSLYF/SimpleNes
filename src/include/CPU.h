@@ -64,6 +64,7 @@ namespace mysn
         void i_asl_accumulator();
         void branch(bool condition);
         void bit(AddressingMode mode);
+        void compare(AddressingMode mode, Byte compare_with);
         void lda(AddressingMode mode);
         void sta(AddressingMode mode);
         void tax();

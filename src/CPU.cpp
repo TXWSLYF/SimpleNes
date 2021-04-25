@@ -162,6 +162,12 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::CMP:
+            {
+                compare(mode, register_a);
+                break;
+            }
+
             case CPUOpcodeMnemonics::LDA:
             {
                 lda(mode);
@@ -271,6 +277,17 @@ namespace mysn
         change_flag(CpuFlags::Zero, (register_a & value) == 0);
         change_flag(CpuFlags::Overflow, value && CpuFlags::Overflow);
         change_flag(CpuFlags::Negative, value && CpuFlags::Negative);
+    }
+
+    void CPU::compare(AddressingMode mode, Byte compare_with)
+    {
+        auto addr = get_operand_address(mode);
+        auto value = mem_read(addr);
+
+        std::uint16_t diff = compare_with - value;
+
+        change_flag(CpuFlags::Carry, diff >= 0);
+        update_zero_and_negative_flags(diff);
     }
 
     void CPU::i_asl(AddressingMode mode)

@@ -33,6 +33,8 @@ namespace mysn
         CLI,
         CLV,
 
+        CMP,
+
         TAX,
         INX,
         LDA,
