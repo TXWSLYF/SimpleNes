@@ -34,10 +34,12 @@ namespace mysn
         CLV,
 
         CMP,
+        CPX,
 
         TAX,
         INX,
         LDA,
+        LDX,
         STA,
     };
 

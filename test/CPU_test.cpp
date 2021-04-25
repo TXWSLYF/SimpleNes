@@ -264,6 +264,54 @@ void test_cmp()
     assert(cpu.status == 0b10000000);
 }
 
+void test_cpx()
+{
+    mysn::CPU cpu = mysn::CPU();
+
+    /**
+        LDX #$00
+        CPX #$00
+        BRK
+     */
+    vector<uint8_t> program1 = {0xa2, 0x00, 0xe0, 0x00, 0x00};
+    cpu.load_and_run(program1);
+    assert(cpu.status == 0b00000011);
+    assert(cpu.register_x == 0x00);
+
+    /**
+        LDX #$f0
+        CPX #$fc
+        BRK
+     */
+    vector<uint8_t> program2 = {0xa2, 0xf0, 0xe0, 0xfc, 0x00};
+    cpu.load_and_run(program2);
+    assert(cpu.status == 0b10000000);
+    assert(cpu.register_x == 0xf0);
+}
+
+void test_ldx()
+{
+    mysn::CPU cpu = mysn::CPU();
+
+    /**
+        LDX #$00
+        BRK
+     */
+    vector<uint8_t> program1 = {0xa2, 0x00, 0x00};
+    cpu.load_and_run(program1);
+    assert(cpu.register_x == 0x00);
+    assert(cpu.status == 0b00000010);
+
+    /**
+        LDX #$ff
+        BRK
+     */
+    vector<uint8_t> program2 = {0xa2, 0xff, 0x00};
+    cpu.load_and_run(program2);
+    assert(cpu.register_x == 0xff);
+    assert(cpu.status == 0b10000000);
+}
+
 int main()
 {
     test_set_clear_flag();
@@ -282,4 +330,6 @@ int main()
     test_bit();
     test_clc_clv();
     test_cmp();
+    test_cpx();
+    test_ldx();
 }

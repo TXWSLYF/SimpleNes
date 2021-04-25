@@ -66,6 +66,7 @@ namespace mysn
         void bit(AddressingMode mode);
         void compare(AddressingMode mode, Byte compare_with);
         void lda(AddressingMode mode);
+        void ldx(AddressingMode mode);
         void sta(AddressingMode mode);
         void tax();
         void inx();

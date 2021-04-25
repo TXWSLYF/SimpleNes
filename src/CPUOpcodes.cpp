@@ -71,6 +71,10 @@ namespace mysn
         {0xc1, CPUOpcodes(0xc1, CPUOpcodeMnemonics::CMP, 2, 6, AddressingMode::Indirect_X)},
         {0xd1, CPUOpcodes(0xd1, CPUOpcodeMnemonics::CMP, 2, 5 /*+1 if page crossed*/, AddressingMode::Indirect_Y)},
 
+        {0xe0, CPUOpcodes(0xe0, CPUOpcodeMnemonics::CPX, 2, 2, AddressingMode::Immediate)},
+        {0xe4, CPUOpcodes(0xe4, CPUOpcodeMnemonics::CPX, 2, 3, AddressingMode::ZeroPage)},
+        {0xec, CPUOpcodes(0xec, CPUOpcodeMnemonics::CPX, 3, 4, AddressingMode::Absolute)},
+
         {0xaa, CPUOpcodes(0xaa, CPUOpcodeMnemonics::TAX, 1, 2, AddressingMode::NoneAddressing)},
         {0xe8, CPUOpcodes(0xe8, CPUOpcodeMnemonics::INX, 1, 2, AddressingMode::NoneAddressing)},
 
@@ -82,6 +86,12 @@ namespace mysn
         {0xb9, CPUOpcodes(0xb9, CPUOpcodeMnemonics::LDA, 3, 4 /*+1 if page crossed*/, AddressingMode::Absolute_Y)},
         {0xa1, CPUOpcodes(0xa1, CPUOpcodeMnemonics::LDA, 2, 6, AddressingMode::Indirect_X)},
         {0xb1, CPUOpcodes(0xb1, CPUOpcodeMnemonics::LDA, 2, 5 /*+1 if page crossed*/, AddressingMode::Indirect_Y)},
+
+        {0xa2, CPUOpcodes(0xa2, CPUOpcodeMnemonics::LDX, 2, 2, AddressingMode::Immediate)},
+        {0xa6, CPUOpcodes(0xa6, CPUOpcodeMnemonics::LDX, 2, 3, AddressingMode::ZeroPage)},
+        {0xb6, CPUOpcodes(0xb6, CPUOpcodeMnemonics::LDX, 2, 4, AddressingMode::ZeroPage_Y)},
+        {0xae, CPUOpcodes(0xae, CPUOpcodeMnemonics::LDX, 3, 4, AddressingMode::Absolute)},
+        {0xbe, CPUOpcodes(0xbe, CPUOpcodeMnemonics::LDX, 3, 4 /*+1 if page crossed*/, AddressingMode::Absolute_Y)},
 
         {0x85, CPUOpcodes(0x85, CPUOpcodeMnemonics::STA, 2, 3, AddressingMode::ZeroPage)},
         {0x95, CPUOpcodes(0x95, CPUOpcodeMnemonics::STA, 2, 4, AddressingMode::ZeroPage_X)},

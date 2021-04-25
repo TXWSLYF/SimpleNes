@@ -168,9 +168,21 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::CPX:
+            {
+                compare(mode, register_x);
+                break;
+            }
+
             case CPUOpcodeMnemonics::LDA:
             {
                 lda(mode);
+                break;
+            }
+
+            case CPUOpcodeMnemonics::LDX:
+            {
+                ldx(mode);
                 break;
             }
 
@@ -317,6 +329,15 @@ namespace mysn
 
         register_a = value;
         update_zero_and_negative_flags(register_a);
+    }
+
+    void CPU::ldx(AddressingMode mode)
+    {
+        auto addr = get_operand_address(mode);
+        auto value = mem_read(addr);
+
+        register_x = value;
+        update_zero_and_negative_flags(register_x);
     }
 
     void CPU::sta(AddressingMode mode)
