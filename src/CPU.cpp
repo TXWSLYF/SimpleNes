@@ -275,8 +275,8 @@ namespace mysn
         auto value = mem_read(addr);
 
         change_flag(CpuFlags::Zero, (register_a & value) == 0);
-        change_flag(CpuFlags::Overflow, value && CpuFlags::Overflow);
-        change_flag(CpuFlags::Negative, value && CpuFlags::Negative);
+        change_flag(CpuFlags::Overflow, value & CpuFlags::Overflow);
+        change_flag(CpuFlags::Negative, value & CpuFlags::Negative);
     }
 
     void CPU::compare(AddressingMode mode, Byte compare_with)
