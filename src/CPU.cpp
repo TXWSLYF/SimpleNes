@@ -1,6 +1,7 @@
 #include "CPU.h"
 #include <iostream>
 #include <CPUOpcodes.h>
+#include <cmath>
 
 namespace mysn
 {
@@ -10,6 +11,21 @@ namespace mysn
                  register_y(0),
                  status(0),
                  memory(0xFFFF, 0){};
+
+    // https://stackoverflow.com/questions/47981/how-do-you-set-clear-and-toggle-a-single-bit
+    void CPU::set_flag(CpuFlags flag)
+    {
+        unsigned long newbit = 1;
+        int n = std::log2(int(flag));
+
+        status ^= (-newbit ^ status) & (1UL << n);
+    }
+
+    void CPU::clear_flag(CpuFlags flag)
+    {
+        int n = std::log2(int(flag));
+        status &= ~(1UL << n);
+    }
 
     void CPU::run()
     {

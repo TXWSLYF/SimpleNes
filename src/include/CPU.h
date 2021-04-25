@@ -79,6 +79,9 @@ namespace mysn
         void load_and_run(std::vector<Byte> &program);
         void mem_write(Address addr, Byte data);
         Byte mem_read(Address addr);
+
+        void set_flag(CpuFlags flag);
+        void clear_flag(CpuFlags flag);
     };
 }
 

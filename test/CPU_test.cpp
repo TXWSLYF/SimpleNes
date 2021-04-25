@@ -156,6 +156,23 @@ void test_asl()
     assert(cpu.mem_read(0xaa) == 0x54);
 }
 
+void test_set_clear_flag()
+{
+    mysn::CPU cpu = mysn::CPU();
+
+    cpu.set_flag(mysn::CpuFlags::Carry);
+    assert(cpu.status == 0b00000001);
+
+    cpu.set_flag(mysn::CpuFlags::Overflow);
+    assert(cpu.status == 0b01000001);
+
+    cpu.clear_flag(mysn::CpuFlags::Carry);
+    assert(cpu.status == 0b01000000);
+
+    cpu.set_flag(mysn::CpuFlags::Negative);
+    assert(cpu.status == 0b11000000);
+}
+
 int main()
 {
     test_0xa9_lda_immidiate_load_data();
@@ -168,4 +185,5 @@ int main()
     test_adc();
     test_and();
     test_asl();
+    test_set_clear_flag();
 }
