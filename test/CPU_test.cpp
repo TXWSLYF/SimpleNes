@@ -196,6 +196,44 @@ void test_asl()
     assert(cpu.mem_read(0xaa) == 0x54);
 }
 
+void test_clc_cld_cli_clv()
+{
+    mysn::CPU cpu = mysn::CPU();
+    cpu.status = 0b11111111;
+
+    /**
+        CLC
+        BRK
+     */
+    vector<uint8_t> program1 = {0x18, 0x00};
+    cpu.load_and_run(program1);
+    assert(cpu.status == 0b11111110);
+
+    /**
+        CLD
+        BRK
+     */
+    vector<uint8_t> program2 = {0xd8, 0x00};
+    cpu.load_and_run(program2);
+    assert(cpu.status == 0b11110110);
+
+    /**
+        CLI
+        BRK
+     */
+    vector<uint8_t> program3 = {0x58, 0x00};
+    cpu.load_and_run(program3);
+    assert(cpu.status == 0b11110010);
+
+    /**
+        CLV
+        BRK
+     */
+    vector<uint8_t> program4 = {0xb8, 0x00};
+    cpu.load_and_run(program4);
+    assert(cpu.status == 0b10110010);
+}
+
 int main()
 {
     test_set_clear_flag();
