@@ -28,6 +28,11 @@ namespace mysn
         BVC,
         BVS,
 
+        CLC,
+        CLD,
+        CLI,
+        CLV,
+
         TAX,
         INX,
         LDA,

@@ -138,6 +138,30 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::CLC:
+            {
+                clear_flag(CpuFlags::Carry);
+                break;
+            }
+
+            case CPUOpcodeMnemonics::CLD:
+            {
+                clear_flag(CpuFlags::Decimal_Mode);
+                break;
+            }
+
+            case CPUOpcodeMnemonics::CLI:
+            {
+                clear_flag(CpuFlags::Interrupt_Disable);
+                break;
+            }
+
+            case CPUOpcodeMnemonics::CLV:
+            {
+                clear_flag(CpuFlags::Overflow);
+                break;
+            }
+
             case CPUOpcodeMnemonics::LDA:
             {
                 lda(mode);

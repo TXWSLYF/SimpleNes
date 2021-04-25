@@ -57,6 +57,11 @@ namespace mysn
         {0x50, CPUOpcodes(0x50, CPUOpcodeMnemonics::BVC, 2, 2, AddressingMode::Relative)},
         {0x70, CPUOpcodes(0x70, CPUOpcodeMnemonics::BVS, 2, 2, AddressingMode::Relative)},
 
+        {0x18, CPUOpcodes(0x18, CPUOpcodeMnemonics::CLC, 1, 2, AddressingMode::NoneAddressing)},
+        {0xD8, CPUOpcodes(0xD8, CPUOpcodeMnemonics::CLD, 1, 2, AddressingMode::NoneAddressing)},
+        {0x58, CPUOpcodes(0x58, CPUOpcodeMnemonics::CLI, 1, 2, AddressingMode::NoneAddressing)},
+        {0xB8, CPUOpcodes(0xB8, CPUOpcodeMnemonics::CLV, 1, 2, AddressingMode::NoneAddressing)},
+
         {0xaa, CPUOpcodes(0xaa, CPUOpcodeMnemonics::TAX, 1, 2, AddressingMode::NoneAddressing)},
         {0xe8, CPUOpcodes(0xe8, CPUOpcodeMnemonics::INX, 1, 2, AddressingMode::NoneAddressing)},
 
