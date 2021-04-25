@@ -196,42 +196,53 @@ void test_asl()
     assert(cpu.mem_read(0xaa) == 0x54);
 }
 
-void test_clc_cld_cli_clv()
+void test_bit()
 {
     mysn::CPU cpu = mysn::CPU();
-    cpu.status = 0b11111111;
 
     /**
+        LDA #$c0
+        STA $aa
+        LDA #$3f
+        BIT $aa
+        BRK
+     */
+    vector<uint8_t> program1 = {0xa9, 0xc0, 0x85, 0xaa, 0xa9, 0x3f, 0x24, 0xaa, 0x00};
+    cpu.load_and_run(program1);
+    assert(cpu.register_a == 0x3f);
+    assert(cpu.status == 0b11000010);
+}
+
+void test_clc_clv()
+{
+    mysn::CPU cpu = mysn::CPU();
+
+    /**
+        LDA #$ff
+        AND #255
+        ASL A
         CLC
         BRK
      */
-    vector<uint8_t> program1 = {0x18, 0x00};
+    vector<uint8_t> program1 = {0xa9, 0xff, 0x29, 0xff, 0x0a, 0x18, 0x00};
     cpu.load_and_run(program1);
-    assert(cpu.status == 0b11111110);
+    assert(cpu.status == 0b10000000);
 
     /**
-        CLD
-        BRK
-     */
-    vector<uint8_t> program2 = {0xd8, 0x00};
-    cpu.load_and_run(program2);
-    assert(cpu.status == 0b11110110);
-
-    /**
-        CLI
-        BRK
-     */
-    vector<uint8_t> program3 = {0x58, 0x00};
-    cpu.load_and_run(program3);
-    assert(cpu.status == 0b11110010);
-
-    /**
+        LDA #$c0
+        STA $aa
+        LDA #$3f
+        BIT $aa
         CLV
         BRK
      */
-    vector<uint8_t> program4 = {0xb8, 0x00};
-    cpu.load_and_run(program4);
-    assert(cpu.status == 0b10110010);
+    vector<uint8_t> program2 = {0xa9, 0xc0, 0x85, 0xaa, 0xa9, 0x3f, 0x24, 0xaa, 0xb8, 0x00};
+    cpu.load_and_run(program2);
+    assert(cpu.status == 0b10000010);
+}
+
+void test_cmp()
+{
 }
 
 int main()
@@ -249,4 +260,7 @@ int main()
     test_adc();
     test_and();
     test_asl();
+    test_bit();
+    test_clc_clv();
+    test_cmp();
 }
