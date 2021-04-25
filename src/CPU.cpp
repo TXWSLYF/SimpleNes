@@ -31,6 +31,11 @@ namespace mysn
         status ^= (-newbit ^ status) & (1UL << n);
     }
 
+    bool CPU::contain_flag(CpuFlags flag)
+    {
+        return !!(status & flag);
+    }
+
     void CPU::run()
     {
         while (true)
@@ -81,19 +86,19 @@ namespace mysn
 
             case CPUOpcodeMnemonics::BCC:
             {
-                branch(!(status & CpuFlags::Carry));
+                branch(!contain_flag(CpuFlags::Carry));
                 break;
             }
 
             case CPUOpcodeMnemonics::BCS:
             {
-                branch(status & CpuFlags::Carry);
+                branch(contain_flag(CpuFlags::Carry));
                 break;
             }
 
             case CPUOpcodeMnemonics::BEQ:
             {
-                branch(status & CpuFlags::Zero);
+                branch(contain_flag(CpuFlags::Zero));
                 break;
             }
 
@@ -105,7 +110,13 @@ namespace mysn
 
             case CPUOpcodeMnemonics::BMI:
             {
-                branch(status & CpuFlags::Negative);
+                branch(contain_flag(CpuFlags::Negative));
+                break;
+            }
+
+            case CPUOpcodeMnemonics::BNE:
+            {
+                branch(!contain_flag(CpuFlags::Zero));
                 break;
             }
 

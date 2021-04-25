@@ -173,6 +173,29 @@ void test_set_clear_flag()
     assert(cpu.status == 0b11000000);
 }
 
+void test_contain_flag()
+{
+    mysn::CPU cpu = mysn::CPU();
+
+    cpu.set_flag(mysn::CpuFlags::Carry);
+    assert(cpu.status == 0b00000001);
+    assert(cpu.contain_flag(mysn::CpuFlags::Carry));
+
+    cpu.set_flag(mysn::CpuFlags::Overflow);
+    assert(cpu.status == 0b01000001);
+    assert(cpu.contain_flag(mysn::CpuFlags::Overflow));
+    assert(cpu.contain_flag(mysn::CpuFlags::Carry));
+    assert(!cpu.contain_flag(mysn::CpuFlags::Zero));
+
+    cpu.clear_flag(mysn::CpuFlags::Carry);
+    assert(cpu.status == 0b01000000);
+    assert(cpu.contain_flag(mysn::CpuFlags::Overflow));
+
+    cpu.set_flag(mysn::CpuFlags::Negative);
+    assert(cpu.status == 0b11000000);
+    assert(cpu.contain_flag(mysn::CpuFlags::Negative));
+}
+
 int main()
 {
     test_0xa9_lda_immidiate_load_data();
@@ -186,4 +209,5 @@ int main()
     test_and();
     test_asl();
     test_set_clear_flag();
+    test_contain_flag();
 }

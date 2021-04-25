@@ -84,6 +84,7 @@ namespace mysn
         void change_flag(CpuFlags flag, bool data);
         void set_flag(CpuFlags flag);
         void clear_flag(CpuFlags flag);
+        bool contain_flag(CpuFlags flag);
     };
 }
 

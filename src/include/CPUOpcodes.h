@@ -20,6 +20,7 @@ namespace mysn
 
         BIT,
         BMI,
+        BNE,
 
         BRK,
         TAX,

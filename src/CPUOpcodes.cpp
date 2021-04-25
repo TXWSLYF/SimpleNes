@@ -48,8 +48,8 @@ namespace mysn
 
         {0x24, CPUOpcodes(0x24, CPUOpcodeMnemonics::BIT, 2, 3, AddressingMode::ZeroPage)},
         {0x2c, CPUOpcodes(0x2c, CPUOpcodeMnemonics::BIT, 3, 4, AddressingMode::Absolute)},
-
         {0x30, CPUOpcodes(0x30, CPUOpcodeMnemonics::BMI, 2, 2, AddressingMode::Relative)},
+        {0xD0, CPUOpcodes(0xD0, CPUOpcodeMnemonics::BNE, 2, 2, AddressingMode::Relative)},
 
         {0x00, CPUOpcodes(0x00, CPUOpcodeMnemonics::BRK, 1, 7, AddressingMode::NoneAddressing)},
         {0xaa, CPUOpcodes(0xaa, CPUOpcodeMnemonics::TAX, 1, 2, AddressingMode::NoneAddressing)},
