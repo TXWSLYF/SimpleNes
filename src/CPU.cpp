@@ -103,6 +103,12 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::BMI:
+            {
+                branch(status & CpuFlags::Negative);
+                break;
+            }
+
             case CPUOpcodeMnemonics::LDA:
             {
                 lda(mode);

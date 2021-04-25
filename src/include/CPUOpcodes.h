@@ -19,6 +19,7 @@ namespace mysn
         BEQ,
 
         BIT,
+        BMI,
 
         BRK,
         TAX,
