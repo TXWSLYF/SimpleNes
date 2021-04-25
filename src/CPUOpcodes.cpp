@@ -75,6 +75,10 @@ namespace mysn
         {0xe4, CPUOpcodes(0xe4, CPUOpcodeMnemonics::CPX, 2, 3, AddressingMode::ZeroPage)},
         {0xec, CPUOpcodes(0xec, CPUOpcodeMnemonics::CPX, 3, 4, AddressingMode::Absolute)},
 
+        {0xc0, CPUOpcodes(0xc0, CPUOpcodeMnemonics::CPY, 2, 2, AddressingMode::Immediate)},
+        {0xc4, CPUOpcodes(0xc4, CPUOpcodeMnemonics::CPY, 2, 3, AddressingMode::ZeroPage)},
+        {0xcc, CPUOpcodes(0xcc, CPUOpcodeMnemonics::CPY, 3, 4, AddressingMode::Absolute)},
+
         {0xaa, CPUOpcodes(0xaa, CPUOpcodeMnemonics::TAX, 1, 2, AddressingMode::NoneAddressing)},
         {0xe8, CPUOpcodes(0xe8, CPUOpcodeMnemonics::INX, 1, 2, AddressingMode::NoneAddressing)},
 

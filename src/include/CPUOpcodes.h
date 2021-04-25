@@ -35,6 +35,7 @@ namespace mysn
 
         CMP,
         CPX,
+        CPY,
 
         TAX,
         INX,

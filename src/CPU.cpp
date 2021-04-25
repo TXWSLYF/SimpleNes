@@ -174,6 +174,12 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::CPY:
+            {
+                compare(mode, register_y);
+                break;
+            }
+
             case CPUOpcodeMnemonics::LDA:
             {
                 lda(mode);
