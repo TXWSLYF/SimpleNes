@@ -42,6 +42,8 @@ namespace mysn
         {0x0E, CPUOpcodes(0x0E, CPUOpcodeMnemonics::ASL, 3, 6, AddressingMode::Absolute)},
         {0x1E, CPUOpcodes(0x1E, CPUOpcodeMnemonics::ASL, 3, 7, AddressingMode::Absolute_X)},
 
+        {0x90, CPUOpcodes(0x90, CPUOpcodeMnemonics::BCC, 2, 2, AddressingMode::Relative)},
+
         {0x00, CPUOpcodes(0x00, CPUOpcodeMnemonics::BRK, 1, 7, AddressingMode::NoneAddressing)},
         {0xaa, CPUOpcodes(0xaa, CPUOpcodeMnemonics::TAX, 1, 2, AddressingMode::NoneAddressing)},
         {0xe8, CPUOpcodes(0xe8, CPUOpcodeMnemonics::INX, 1, 2, AddressingMode::NoneAddressing)},

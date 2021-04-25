@@ -59,6 +59,12 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::BCC:
+            {
+                branch(!(status & CpuFlags::Carry));
+                break;
+            }
+
             case CPUOpcodeMnemonics::LDA:
             {
                 lda(mode);
@@ -147,6 +153,17 @@ namespace mysn
 
         register_a = register_a << 1;
         update_zero_and_negative_flags(register_a);
+    }
+
+    void CPU::branch(bool condition)
+    {
+        if (condition)
+        {
+            int8_t jump = mem_read(program_counter);
+            auto jump_addr = static_cast<Address>(program_counter + 1 + jump);
+
+            program_counter = jump_addr;
+        }
     }
 
     void CPU::i_asl(AddressingMode mode)
@@ -279,6 +296,11 @@ namespace mysn
         switch (mode)
         {
         case AddressingMode::Accumulator:
+        {
+            abort();
+        };
+
+        case AddressingMode::Relative:
         {
             abort();
         };

@@ -13,6 +13,7 @@ namespace mysn
         ADC,
         AND,
         ASL,
+        BCC,
         BRK,
         TAX,
         INX,

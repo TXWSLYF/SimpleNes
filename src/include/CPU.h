@@ -15,6 +15,7 @@ namespace mysn
     {
         Accumulator,
         Immediate,
+        Relative,
         ZeroPage,
         ZeroPage_X,
         ZeroPage_Y,
@@ -49,6 +50,7 @@ namespace mysn
         void i_and(AddressingMode mode);
         void i_asl(AddressingMode mode);
         void i_asl_accumulator();
+        void branch(bool condition);
         void lda(AddressingMode mode);
         void sta(AddressingMode mode);
         void tax();
