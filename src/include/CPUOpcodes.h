@@ -24,6 +24,9 @@ namespace mysn
         BPL,
 
         BRK,
+
+        BVC,
+
         TAX,
         INX,
         LDA,
