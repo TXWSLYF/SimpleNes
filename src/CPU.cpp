@@ -120,6 +120,12 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::BPL:
+            {
+                branch(!contain_flag(CpuFlags::Negative));
+                break;
+            }
+
             case CPUOpcodeMnemonics::LDA:
             {
                 lda(mode);

@@ -21,6 +21,7 @@ namespace mysn
         BIT,
         BMI,
         BNE,
+        BPL,
 
         BRK,
         TAX,
