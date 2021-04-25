@@ -243,6 +243,25 @@ void test_clc_clv()
 
 void test_cmp()
 {
+    mysn::CPU cpu = mysn::CPU();
+
+    /**
+        LDA #$00
+        CMP #$00
+        BRK
+     */
+    vector<uint8_t> program1 = {0xa9, 0x00, 0xc9, 0x00, 0x00};
+    cpu.load_and_run(program1);
+    assert(cpu.status == 0b00000011);
+
+    /**
+        LDA #$f0
+        CMP #$fc
+        BRK
+     */
+    vector<uint8_t> program2 = {0xa9, 0xf0, 0xc9, 0xfc, 0x00};
+    cpu.load_and_run(program2);
+    assert(cpu.status == 0b10000000);
 }
 
 int main()

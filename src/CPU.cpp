@@ -286,7 +286,8 @@ namespace mysn
 
         std::uint16_t diff = compare_with - value;
 
-        change_flag(CpuFlags::Carry, diff >= 0);
+        // fix: if the ninth bit is 1, the resulting number is negative => borrow => low carry
+        change_flag(CpuFlags::Carry, !(diff & 0x100));
         update_zero_and_negative_flags(diff);
     }
 
