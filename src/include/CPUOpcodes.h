@@ -18,6 +18,8 @@ namespace mysn
         BCS,
         BEQ,
 
+        BIT,
+
         BRK,
         TAX,
         INX,

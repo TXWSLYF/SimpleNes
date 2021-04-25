@@ -15,16 +15,20 @@ namespace mysn
     // https://stackoverflow.com/questions/47981/how-do-you-set-clear-and-toggle-a-single-bit
     void CPU::set_flag(CpuFlags flag)
     {
-        unsigned long newbit = 1;
-        int n = std::log2(int(flag));
-
-        status ^= (-newbit ^ status) & (1UL << n);
+        change_flag(flag, true);
     }
 
     void CPU::clear_flag(CpuFlags flag)
     {
+        change_flag(flag, false);
+    }
+
+    void CPU::change_flag(CpuFlags flag, bool data)
+    {
+        unsigned long newbit = !!data;
         int n = std::log2(int(flag));
-        status &= ~(1UL << n);
+
+        status ^= (-newbit ^ status) & (1UL << n);
     }
 
     void CPU::run()
@@ -90,6 +94,12 @@ namespace mysn
             case CPUOpcodeMnemonics::BEQ:
             {
                 branch(status & CpuFlags::Zero);
+                break;
+            }
+
+            case CPUOpcodeMnemonics::BIT:
+            {
+                bit(mode);
                 break;
             }
 
@@ -194,6 +204,16 @@ namespace mysn
         }
     }
 
+    void CPU::bit(AddressingMode mode)
+    {
+        auto addr = get_operand_address(mode);
+        auto value = mem_read(addr);
+
+        change_flag(CpuFlags::Zero, (register_a & value) == 0);
+        change_flag(CpuFlags::Overflow, value && CpuFlags::Overflow);
+        change_flag(CpuFlags::Negative, value && CpuFlags::Negative);
+    }
+
     void CPU::i_asl(AddressingMode mode)
     {
         auto addr = get_operand_address(mode);
@@ -243,23 +263,8 @@ namespace mysn
 
     void CPU::update_zero_and_negative_flags(Byte result)
     {
-        if (result == 0)
-        {
-            status = status | 0b00000010;
-        }
-        else
-        {
-            status = status & 0b11111101;
-        }
-
-        if ((result & 0b10000000) != 0)
-        {
-            status = status | 0b10000000;
-        }
-        else
-        {
-            status = status & 0b01111111;
-        }
+        change_flag(CpuFlags::Zero, !result);
+        change_flag(CpuFlags::Negative, result & CpuFlags::Negative);
     };
 
     Byte CPU::mem_read(Address addr)

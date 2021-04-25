@@ -51,6 +51,7 @@ namespace mysn
         void i_asl(AddressingMode mode);
         void i_asl_accumulator();
         void branch(bool condition);
+        void bit(AddressingMode mode);
         void lda(AddressingMode mode);
         void sta(AddressingMode mode);
         void tax();
@@ -80,6 +81,7 @@ namespace mysn
         void mem_write(Address addr, Byte data);
         Byte mem_read(Address addr);
 
+        void change_flag(CpuFlags flag, bool data);
         void set_flag(CpuFlags flag);
         void clear_flag(CpuFlags flag);
     };
