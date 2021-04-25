@@ -14,6 +14,7 @@ namespace mysn
         AND,
         ASL,
         BCC,
+        BCS,
         BRK,
         TAX,
         INX,

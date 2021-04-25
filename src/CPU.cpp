@@ -65,6 +65,12 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::BCS:
+            {
+                branch(status & CpuFlags::Carry);
+                break;
+            }
+
             case CPUOpcodeMnemonics::LDA:
             {
                 lda(mode);
