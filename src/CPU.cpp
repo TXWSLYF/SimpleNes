@@ -71,6 +71,12 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::BEQ:
+            {
+                branch(status & CpuFlags::Zero);
+                break;
+            }
+
             case CPUOpcodeMnemonics::LDA:
             {
                 lda(mode);
