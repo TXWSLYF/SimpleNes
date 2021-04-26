@@ -39,6 +39,7 @@ namespace mysn
 
         DEC,
         DEX,
+        DEY,
 
         TAX,
         INX,

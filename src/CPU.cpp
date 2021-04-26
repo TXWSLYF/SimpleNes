@@ -192,6 +192,12 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::DEY:
+            {
+                dey();
+                break;
+            }
+
             case CPUOpcodeMnemonics::LDA:
             {
                 lda(mode);
@@ -334,6 +340,12 @@ namespace mysn
     {
         --register_x;
         update_zero_and_negative_flags(register_x);
+    }
+
+    void CPU::dey()
+    {
+        --register_y;
+        update_zero_and_negative_flags(register_y);
     }
 
     void CPU::i_asl(AddressingMode mode)

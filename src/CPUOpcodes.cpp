@@ -85,6 +85,7 @@ namespace mysn
         {0xde, CPUOpcodes(0xde, CPUOpcodeMnemonics::DEC, 3, 7, AddressingMode::Absolute_X)},
 
         {0xca, CPUOpcodes(0xca, CPUOpcodeMnemonics::DEX, 1, 2, AddressingMode::NoneAddressing)},
+        {0x88, CPUOpcodes(0x88, CPUOpcodeMnemonics::DEY, 1, 2, AddressingMode::NoneAddressing)},
 
         {0xaa, CPUOpcodes(0xaa, CPUOpcodeMnemonics::TAX, 1, 2, AddressingMode::NoneAddressing)},
         {0xe8, CPUOpcodes(0xe8, CPUOpcodeMnemonics::INX, 1, 2, AddressingMode::NoneAddressing)},
