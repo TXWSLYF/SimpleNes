@@ -41,6 +41,8 @@ namespace mysn
         DEX,
         DEY,
 
+        EOR,
+
         TAX,
         INX,
         LDA,

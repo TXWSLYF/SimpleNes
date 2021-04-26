@@ -198,6 +198,12 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::EOR:
+            {
+                eor(mode);
+                break;
+            }
+
             case CPUOpcodeMnemonics::LDA:
             {
                 lda(mode);
@@ -346,6 +352,15 @@ namespace mysn
     {
         --register_y;
         update_zero_and_negative_flags(register_y);
+    }
+
+    void CPU::eor(AddressingMode mode)
+    {
+        auto addr = get_operand_address(mode);
+        auto value = mem_read(addr);
+
+        register_a = value ^ register_a;
+        update_zero_and_negative_flags(register_a);
     }
 
     void CPU::i_asl(AddressingMode mode)

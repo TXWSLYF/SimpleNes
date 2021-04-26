@@ -70,6 +70,8 @@ namespace mysn
         void dex();
         void dey();
 
+        void eor(AddressingMode mode);
+
         void lda(AddressingMode mode);
         void ldx(AddressingMode mode);
         void sta(AddressingMode mode);
