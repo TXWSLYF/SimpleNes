@@ -65,6 +65,8 @@ namespace mysn
         void branch(bool condition);
         void bit(AddressingMode mode);
         void compare(AddressingMode mode, Byte compare_with);
+        void dec(AddressingMode mode);
+        void dex();
         void lda(AddressingMode mode);
         void ldx(AddressingMode mode);
         void sta(AddressingMode mode);

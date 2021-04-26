@@ -180,6 +180,18 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::DEC:
+            {
+                dec(mode);
+                break;
+            }
+
+            case CPUOpcodeMnemonics::DEX:
+            {
+                dex();
+                break;
+            }
+
             case CPUOpcodeMnemonics::LDA:
             {
                 lda(mode);
@@ -307,6 +319,21 @@ namespace mysn
         // fix: if the ninth bit is 1, the resulting number is negative => borrow => low carry
         change_flag(CpuFlags::Carry, !(diff & 0x100));
         update_zero_and_negative_flags(diff);
+    }
+
+    void CPU::dec(AddressingMode mode)
+    {
+        auto addr = get_operand_address(mode);
+        auto value = mem_read(addr) - 1;
+
+        mem_write(addr, value);
+        update_zero_and_negative_flags(value);
+    }
+
+    void CPU::dex()
+    {
+        --register_x;
+        update_zero_and_negative_flags(register_x);
     }
 
     void CPU::i_asl(AddressingMode mode)

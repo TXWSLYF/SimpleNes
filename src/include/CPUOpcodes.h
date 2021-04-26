@@ -37,6 +37,9 @@ namespace mysn
         CPX,
         CPY,
 
+        DEC,
+        DEX,
+
         TAX,
         INX,
         LDA,

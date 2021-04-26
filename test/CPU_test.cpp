@@ -312,6 +312,60 @@ void test_ldx()
     assert(cpu.status == 0b10000000);
 }
 
+void test_dec()
+{
+    mysn::CPU cpu = mysn::CPU();
+
+    /**
+        LDA #$c0
+        STA $aa
+        DEC $aa
+        BRK
+     */
+    vector<uint8_t> program1 = {0xa9, 0xc0, 0x85, 0xaa, 0xc6, 0xaa, 0x00};
+    cpu.load_and_run(program1);
+    assert(cpu.register_a == 0xc0);
+    assert(cpu.status == 0b10000000);
+    assert(cpu.mem_read(0xaa) == 0xbf);
+
+    /**
+        LDA #$01
+        STA $aa
+        DEC $aa
+        BRK
+     */
+    vector<uint8_t> program2 = {0xa9, 0x01, 0x85, 0xaa, 0xc6, 0xaa, 0x00};
+    cpu.load_and_run(program2);
+    assert(cpu.register_a == 0x01);
+    assert(cpu.status == 0b00000010);
+    assert(cpu.mem_read(0xaa) == 0x00);
+}
+
+void test_dex()
+{
+    mysn::CPU cpu = mysn::CPU();
+
+    /**
+        LDX #$01
+        DEX
+        BRK
+     */
+    vector<uint8_t> program1 = {0xa2, 0x01, 0xca, 0x00};
+    cpu.load_and_run(program1);
+    assert(cpu.register_x == 0x00);
+    assert(cpu.status == 0b00000010);
+
+    /**
+        LDX #$00
+        DEX
+        BRK
+     */
+    vector<uint8_t> program2 = {0xa2, 0x00, 0xca, 0x00};
+    cpu.load_and_run(program2);
+    assert(cpu.register_x == 0xff);
+    assert(cpu.status == 0b10000000);
+}
+
 int main()
 {
     test_set_clear_flag();
@@ -332,4 +386,6 @@ int main()
     test_cmp();
     test_cpx();
     test_ldx();
+    test_dec();
+    test_dex();
 }
