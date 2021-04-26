@@ -72,6 +72,8 @@ namespace mysn
 
         void eor(AddressingMode mode);
 
+        void inc(AddressingMode mode);
+
         void lda(AddressingMode mode);
         void ldx(AddressingMode mode);
         void sta(AddressingMode mode);

@@ -366,6 +366,35 @@ void test_dex()
     assert(cpu.status == 0b10000000);
 }
 
+void test_inc()
+{
+    mysn::CPU cpu = mysn::CPU();
+
+    /**
+        LDA #$fe
+        STA $aa
+        INC $aa
+        BRK
+     */
+    vector<uint8_t> program1 = {0xa9, 0xfe, 0x85, 0xaa, 0xe6, 0xaa, 0x00};
+    cpu.load_and_run(program1);
+    assert(cpu.register_a == 0xfe);
+    assert(cpu.status == 0b10000000);
+    assert(cpu.mem_read(0xaa) == 0xff);
+
+    /**
+        LDA #$ff
+        STA $aa
+        DEC $aa
+        BRK
+     */
+    vector<uint8_t> program2 = {0xa9, 0xff, 0x85, 0xaa, 0xe6, 0xaa, 0x00};
+    cpu.load_and_run(program2);
+    assert(cpu.register_a == 0xff);
+    assert(cpu.status == 0b00000010);
+    assert(cpu.mem_read(0xaa) == 0x00);
+}
+
 int main()
 {
     test_set_clear_flag();
@@ -388,4 +417,5 @@ int main()
     test_ldx();
     test_dec();
     test_dex();
+    test_inc();
 }

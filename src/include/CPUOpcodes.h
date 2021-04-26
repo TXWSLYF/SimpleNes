@@ -43,6 +43,8 @@ namespace mysn
 
         EOR,
 
+        INC,
+
         TAX,
         INX,
         LDA,

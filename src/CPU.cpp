@@ -204,6 +204,12 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::INC:
+            {
+                inc(mode);
+                break;
+            }
+
             case CPUOpcodeMnemonics::LDA:
             {
                 lda(mode);
@@ -361,6 +367,15 @@ namespace mysn
 
         register_a = value ^ register_a;
         update_zero_and_negative_flags(register_a);
+    }
+
+    void CPU::inc(AddressingMode mode)
+    {
+        auto addr = get_operand_address(mode);
+        auto value = mem_read(addr) + 1;
+
+        mem_write(addr, value);
+        update_zero_and_negative_flags(value);
     }
 
     void CPU::i_asl(AddressingMode mode)
