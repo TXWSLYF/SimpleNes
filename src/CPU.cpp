@@ -210,6 +210,18 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::INX:
+            {
+                inx();
+                break;
+            }
+
+            case CPUOpcodeMnemonics::INY:
+            {
+                iny();
+                break;
+            }
+
             case CPUOpcodeMnemonics::LDA:
             {
                 lda(mode);
@@ -231,12 +243,6 @@ namespace mysn
             case CPUOpcodeMnemonics::TAX:
             {
                 tax();
-                break;
-            }
-
-            case CPUOpcodeMnemonics::INX:
-            {
-                inx();
                 break;
             }
 
@@ -432,6 +438,12 @@ namespace mysn
     {
         ++register_x;
         update_zero_and_negative_flags(register_x);
+    }
+
+    void CPU::iny()
+    {
+        ++register_y;
+        update_zero_and_negative_flags(register_y);
     }
 
     void CPU::update_zero_and_negative_flags(Byte result)

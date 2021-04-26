@@ -45,8 +45,10 @@ namespace mysn
 
         INC,
 
-        TAX,
         INX,
+        INY,
+
+        TAX,
         LDA,
         LDX,
         STA,

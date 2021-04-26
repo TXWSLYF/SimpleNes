@@ -79,6 +79,7 @@ namespace mysn
         void sta(AddressingMode mode);
         void tax();
         void inx();
+        void iny();
 
         DobuleByte mem_read_u16(Address addr);
         void mem_write_u16(Address addr, DobuleByte data);
