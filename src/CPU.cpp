@@ -222,6 +222,27 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::JMP:
+            {
+                if (mode == AddressingMode::Absolute)
+                {
+                    auto addr = mem_read_u16(program_counter);
+                    program_counter = addr;
+                }
+                else if (mode == AddressingMode::Indirect)
+                {
+                    Address location = mem_read_u16(program_counter);
+                    //6502 has a bug such that the when the vector of anindirect address begins at the last byte of a page,
+                    //the second byte is fetched from the beginning of that page rather than the beginning of the next
+                    //Recreating here:
+                    Address Page = location & 0xff00;
+                    program_counter = mem_read(location) |
+                                      mem_read(Page | ((location + 1) & 0xff)) << 8;
+                }
+
+                break;
+            }
+
             case CPUOpcodeMnemonics::LDA:
             {
                 lda(mode);
@@ -572,6 +593,11 @@ namespace mysn
             Address addr = base + register_y;
 
             return addr;
+        }
+
+        case AddressingMode::Indirect:
+        {
+            abort();
         }
 
         case AddressingMode::Indirect_X:

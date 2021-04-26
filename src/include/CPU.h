@@ -22,6 +22,7 @@ namespace mysn
         Absolute,
         Absolute_X,
         Absolute_Y,
+        Indirect,
         Indirect_X,
         Indirect_Y,
         NoneAddressing,

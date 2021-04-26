@@ -104,6 +104,9 @@ namespace mysn
         {0xe8, CPUOpcodes(0xe8, CPUOpcodeMnemonics::INX, 1, 2, AddressingMode::NoneAddressing)},
         {0xc8, CPUOpcodes(0xc8, CPUOpcodeMnemonics::INY, 1, 2, AddressingMode::NoneAddressing)},
 
+        {0x4c, CPUOpcodes(0x4c, CPUOpcodeMnemonics::JMP, 3, 3, AddressingMode::Absolute)},
+        {0x6c, CPUOpcodes(0x6c, CPUOpcodeMnemonics::JMP, 3, 5, AddressingMode::Indirect)},
+
         {0xaa, CPUOpcodes(0xaa, CPUOpcodeMnemonics::TAX, 1, 2, AddressingMode::NoneAddressing)},
 
         {0xa9, CPUOpcodes(0xa9, CPUOpcodeMnemonics::LDA, 2, 2, AddressingMode::Immediate)},
