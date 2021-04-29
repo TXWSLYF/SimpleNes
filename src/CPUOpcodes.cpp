@@ -130,6 +130,12 @@ namespace mysn
         {0xac, CPUOpcodes(0xac, CPUOpcodeMnemonics::LDY, 3, 4, AddressingMode::Absolute)},
         {0xbc, CPUOpcodes(0xbc, CPUOpcodeMnemonics::LDY, 3, 4 /*+1 if page crossed*/, AddressingMode::Absolute_X)},
 
+        {0x4a, CPUOpcodes(0x4a, CPUOpcodeMnemonics::LSR, 1, 2, AddressingMode::Accumulator)},
+        {0x46, CPUOpcodes(0x46, CPUOpcodeMnemonics::LSR, 2, 5, AddressingMode::ZeroPage)},
+        {0x56, CPUOpcodes(0x56, CPUOpcodeMnemonics::LSR, 2, 6, AddressingMode::ZeroPage_X)},
+        {0x4e, CPUOpcodes(0x4e, CPUOpcodeMnemonics::LSR, 3, 6, AddressingMode::Absolute)},
+        {0x5e, CPUOpcodes(0x5e, CPUOpcodeMnemonics::LSR, 3, 7, AddressingMode::Absolute_X)},
+
         {0xaa, CPUOpcodes(0xaa, CPUOpcodeMnemonics::TAX, 1, 2, AddressingMode::NoneAddressing)},
 
         {0x85, CPUOpcodes(0x85, CPUOpcodeMnemonics::STA, 2, 3, AddressingMode::ZeroPage)},

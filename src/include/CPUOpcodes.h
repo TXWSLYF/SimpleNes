@@ -54,6 +54,8 @@ namespace mysn
         LDX,
         LDY,
 
+        LSR,
+
         TAX,
         STA,
     };

@@ -269,6 +269,19 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::LSR:
+            {
+                if (mode == AddressingMode::Accumulator)
+                {
+                    lsr_accumulator();
+                }
+                else
+                {
+                    lsr(mode);
+                }
+                break;
+            }
+
             case CPUOpcodeMnemonics::STA:
             {
                 sta(mode);
@@ -463,6 +476,23 @@ namespace mysn
 
         register_y = value;
         update_zero_and_negative_flags(register_y);
+    }
+
+    void CPU::lsr_accumulator()
+    {
+        change_flag(CpuFlags::Carry, register_a & 1);
+        register_a = register_a >> 1;
+        update_zero_and_negative_flags(register_a);
+    }
+
+    void CPU::lsr(AddressingMode mode)
+    {
+        auto addr = get_operand_address(mode);
+        auto value = mem_read(addr);
+        change_flag(CpuFlags::Carry, value & 1);
+        value = value >> 1;
+        mem_write(addr, value);
+        update_zero_and_negative_flags(value);
     }
 
     void CPU::sta(AddressingMode mode)

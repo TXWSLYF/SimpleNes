@@ -78,6 +78,8 @@ namespace mysn
         void lda(AddressingMode mode);
         void ldx(AddressingMode mode);
         void ldy(AddressingMode mode);
+        void lsr_accumulator();
+        void lsr(AddressingMode mode);
         void sta(AddressingMode mode);
         void tax();
         void inx();
