@@ -364,6 +364,12 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::SBC:
+            {
+                sbc(mode);
+                break;
+            }
+
             case CPUOpcodeMnemonics::STA:
             {
                 sta(mode);
@@ -653,6 +659,19 @@ namespace mysn
     {
         register_a = stack_pop();
         update_zero_and_negative_flags(register_a);
+    }
+
+    void CPU::sbc(AddressingMode mode)
+    {
+        auto addr = get_operand_address(mode);
+        auto value = mem_read(addr);
+
+        auto diff = register_a - value - !contain_flag(CpuFlags::Carry);
+        change_flag(CpuFlags::Carry, !(diff & 0x100));
+        change_flag(CpuFlags::Overflow, (register_a ^ diff) & (~value ^ diff) & 0x80);
+        register_a = diff;
+
+        update_zero_and_negative_flags(diff);
     }
 
     void CPU::sta(AddressingMode mode)

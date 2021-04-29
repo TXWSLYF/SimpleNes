@@ -86,6 +86,7 @@ namespace mysn
         void ror(AddressingMode mode);
         void ora(AddressingMode mode);
         void pla();
+        void sbc(AddressingMode mode);
         void sta(AddressingMode mode);
         void tax();
         void inx();
