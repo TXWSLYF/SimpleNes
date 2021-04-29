@@ -321,6 +321,32 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::ROL:
+            {
+                if (mode == AddressingMode::Accumulator)
+                {
+                    rol_accumulator();
+                }
+                else
+                {
+                    rol(mode);
+                }
+                break;
+            }
+
+            case CPUOpcodeMnemonics::ROR:
+            {
+                if (mode == AddressingMode::Accumulator)
+                {
+                    ror_accumulator();
+                }
+                else
+                {
+                    ror(mode);
+                }
+                break;
+            }
+
             case CPUOpcodeMnemonics::STA:
             {
                 sta(mode);
@@ -531,6 +557,68 @@ namespace mysn
 
         change_flag(CpuFlags::Carry, value & 1);
         value = value >> 1;
+        mem_write(addr, value);
+        update_zero_and_negative_flags(value);
+    }
+
+    void CPU::rol_accumulator()
+    {
+        auto old_carry = contain_flag(CpuFlags::Carry);
+        change_flag(CpuFlags::Carry, (register_a >> 7) == 1);
+        register_a = register_a << 1;
+
+        if (old_carry)
+        {
+            register_a = register_a | 1;
+        }
+        update_zero_and_negative_flags(register_a);
+    }
+
+    void CPU::rol(AddressingMode mode)
+    {
+        auto addr = get_operand_address(mode);
+        auto value = mem_read(addr);
+        auto old_carry = contain_flag(CpuFlags::Carry);
+
+        change_flag(CpuFlags::Carry, (value >> 7) == 1);
+        value = value << 1;
+        if (old_carry)
+        {
+            value = value | 1;
+        }
+        mem_write(addr, value);
+        update_zero_and_negative_flags(value);
+    }
+
+    void CPU::ror_accumulator()
+    {
+        auto old_carry = contain_flag(CpuFlags::Carry);
+
+        change_flag(CpuFlags::Carry, (register_a & 1) == 1);
+        register_a = register_a >> 1;
+
+        if (old_carry)
+        {
+            register_a = register_a | 0b10000000;
+        }
+
+        update_zero_and_negative_flags(register_a);
+    }
+
+    void CPU::ror(AddressingMode mode)
+    {
+        auto addr = get_operand_address(mode);
+        auto value = mem_read(addr);
+        auto old_carry = contain_flag(CpuFlags::Carry);
+
+        change_flag(CpuFlags::Carry, (value & 1) == 1);
+        value = value >> 1;
+
+        if (old_carry)
+        {
+            value = value | 0b10000000;
+        }
+
         mem_write(addr, value);
         update_zero_and_negative_flags(value);
     }

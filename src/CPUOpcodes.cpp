@@ -152,6 +152,18 @@ namespace mysn
         {0x68, CPUOpcodes(0x68, CPUOpcodeMnemonics::PLA, 1, 4, AddressingMode::NoneAddressing)},
         {0x28, CPUOpcodes(0x28, CPUOpcodeMnemonics::PLP, 1, 4, AddressingMode::NoneAddressing)},
 
+        {0x2a, CPUOpcodes(0x2a, CPUOpcodeMnemonics::ROL, 1, 2, AddressingMode::Accumulator)},
+        {0x26, CPUOpcodes(0x26, CPUOpcodeMnemonics::ROL, 2, 5, AddressingMode::ZeroPage)},
+        {0x36, CPUOpcodes(0x36, CPUOpcodeMnemonics::ROL, 2, 6, AddressingMode::ZeroPage_X)},
+        {0x2e, CPUOpcodes(0x2e, CPUOpcodeMnemonics::ROL, 3, 6, AddressingMode::Absolute)},
+        {0x3e, CPUOpcodes(0x3e, CPUOpcodeMnemonics::ROL, 3, 7, AddressingMode::Absolute_X)},
+
+        {0x6a, CPUOpcodes(0x6a, CPUOpcodeMnemonics::ROR, 1, 2, AddressingMode::Accumulator)},
+        {0x66, CPUOpcodes(0x66, CPUOpcodeMnemonics::ROR, 2, 5, AddressingMode::ZeroPage)},
+        {0x76, CPUOpcodes(0x76, CPUOpcodeMnemonics::ROR, 2, 6, AddressingMode::ZeroPage_X)},
+        {0x6e, CPUOpcodes(0x6e, CPUOpcodeMnemonics::ROR, 3, 6, AddressingMode::Absolute)},
+        {0x7e, CPUOpcodes(0x7e, CPUOpcodeMnemonics::ROR, 3, 7, AddressingMode::Absolute_X)},
+
         {0xaa, CPUOpcodes(0xaa, CPUOpcodeMnemonics::TAX, 1, 2, AddressingMode::NoneAddressing)},
 
         {0x85, CPUOpcodes(0x85, CPUOpcodeMnemonics::STA, 2, 3, AddressingMode::ZeroPage)},

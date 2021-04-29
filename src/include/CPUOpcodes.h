@@ -63,6 +63,9 @@ namespace mysn
         PLA,
         PLP,
 
+        ROL,
+        ROR,
+
         TAX,
         STA,
     };
