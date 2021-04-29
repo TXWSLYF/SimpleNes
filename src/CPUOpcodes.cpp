@@ -150,6 +150,7 @@ namespace mysn
         {0x48, CPUOpcodes(0x48, CPUOpcodeMnemonics::PHA, 1, 3, AddressingMode::NoneAddressing)},
         {0x08, CPUOpcodes(0x08, CPUOpcodeMnemonics::PHP, 1, 3, AddressingMode::NoneAddressing)},
         {0x68, CPUOpcodes(0x68, CPUOpcodeMnemonics::PLA, 1, 4, AddressingMode::NoneAddressing)},
+        {0x28, CPUOpcodes(0x28, CPUOpcodeMnemonics::PLP, 1, 4, AddressingMode::NoneAddressing)},
 
         {0xaa, CPUOpcodes(0xaa, CPUOpcodeMnemonics::TAX, 1, 2, AddressingMode::NoneAddressing)},
 

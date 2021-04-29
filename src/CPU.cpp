@@ -313,6 +313,14 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::PLP:
+            {
+                status = stack_pop();
+                clear_flag(CpuFlags::Break);
+                set_flag(CpuFlags::Break2);
+                break;
+            }
+
             case CPUOpcodeMnemonics::STA:
             {
                 sta(mode);
