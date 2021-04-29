@@ -55,6 +55,8 @@ namespace mysn
         LDY,
 
         LSR,
+        NOP,
+        ORA,
 
         TAX,
         STA,

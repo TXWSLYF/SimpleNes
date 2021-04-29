@@ -80,6 +80,7 @@ namespace mysn
         void ldy(AddressingMode mode);
         void lsr_accumulator();
         void lsr(AddressingMode mode);
+        void ora(AddressingMode mode);
         void sta(AddressingMode mode);
         void tax();
         void inx();

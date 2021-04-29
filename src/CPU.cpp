@@ -282,6 +282,17 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::NOP:
+            {
+                break;
+            }
+
+            case CPUOpcodeMnemonics::ORA:
+            {
+                ora(mode);
+                break;
+            }
+
             case CPUOpcodeMnemonics::STA:
             {
                 sta(mode);
@@ -489,10 +500,20 @@ namespace mysn
     {
         auto addr = get_operand_address(mode);
         auto value = mem_read(addr);
+
         change_flag(CpuFlags::Carry, value & 1);
         value = value >> 1;
         mem_write(addr, value);
         update_zero_and_negative_flags(value);
+    }
+
+    void CPU::ora(AddressingMode mode)
+    {
+        auto addr = get_operand_address(mode);
+        auto value = mem_read(addr);
+
+        register_a = value | register_a;
+        update_zero_and_negative_flags(register_a);
     }
 
     void CPU::sta(AddressingMode mode)
