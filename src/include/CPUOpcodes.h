@@ -66,6 +66,8 @@ namespace mysn
         ROL,
         ROR,
 
+        RTI,
+
         TAX,
         STA,
     };

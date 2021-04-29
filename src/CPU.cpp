@@ -347,6 +347,17 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::RTI:
+            {
+                status = stack_pop();
+                clear_flag(CpuFlags::Break);
+                set_flag(CpuFlags::Break2);
+
+                program_counter = stack_pop_u16();
+
+                break;
+            }
+
             case CPUOpcodeMnemonics::STA:
             {
                 sta(mode);
@@ -678,6 +689,14 @@ namespace mysn
     Byte CPU::stack_pop()
     {
         return mem_read(0x100 | ++stack_pointer);
+    }
+
+    Address CPU::stack_pop_u16()
+    {
+        auto lo = static_cast<Address>(stack_pop());
+        auto hi = static_cast<Address>(stack_pop());
+
+        return hi << 8 | lo;
     }
 
     void CPU::update_zero_and_negative_flags(Byte result)

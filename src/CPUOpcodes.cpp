@@ -164,6 +164,8 @@ namespace mysn
         {0x6e, CPUOpcodes(0x6e, CPUOpcodeMnemonics::ROR, 3, 6, AddressingMode::Absolute)},
         {0x7e, CPUOpcodes(0x7e, CPUOpcodeMnemonics::ROR, 3, 7, AddressingMode::Absolute_X)},
 
+        {0x40, CPUOpcodes(0x40, CPUOpcodeMnemonics::RTI, 1, 6, AddressingMode::NoneAddressing)},
+
         {0xaa, CPUOpcodes(0xaa, CPUOpcodeMnemonics::TAX, 1, 2, AddressingMode::NoneAddressing)},
 
         {0x85, CPUOpcodes(0x85, CPUOpcodeMnemonics::STA, 2, 3, AddressingMode::ZeroPage)},

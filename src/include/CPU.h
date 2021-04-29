@@ -93,6 +93,7 @@ namespace mysn
         void stack_push_u16(Address addr);
         void stack_push(Byte data);
         Byte stack_pop();
+        Address stack_pop_u16();
 
         DobuleByte mem_read_u16(Address addr);
         void mem_write_u16(Address addr, DobuleByte data);
