@@ -293,6 +293,12 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::PHA:
+            {
+                stack_push(register_a);
+                break;
+            }
+
             case CPUOpcodeMnemonics::STA:
             {
                 sta(mode);

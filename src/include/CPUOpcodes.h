@@ -58,6 +58,8 @@ namespace mysn
         NOP,
         ORA,
 
+        PHA,
+
         TAX,
         STA,
     };
