@@ -263,6 +263,12 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::LDY:
+            {
+                ldy(mode);
+                break;
+            }
+
             case CPUOpcodeMnemonics::STA:
             {
                 sta(mode);
@@ -448,6 +454,15 @@ namespace mysn
 
         register_x = value;
         update_zero_and_negative_flags(register_x);
+    }
+
+    void CPU::ldy(AddressingMode mode)
+    {
+        auto addr = get_operand_address(mode);
+        auto value = mem_read(addr);
+
+        register_y = value;
+        update_zero_and_negative_flags(register_y);
     }
 
     void CPU::sta(AddressingMode mode)

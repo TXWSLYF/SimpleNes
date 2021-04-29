@@ -50,9 +50,11 @@ namespace mysn
         JMP,
         JSR,
 
-        TAX,
         LDA,
         LDX,
+        LDY,
+
+        TAX,
         STA,
     };
 
