@@ -421,6 +421,30 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::TSX:
+            {
+                register_x = stack_pointer;
+                update_zero_and_negative_flags(register_x);
+                break;
+            }
+
+            case CPUOpcodeMnemonics::TXA:
+            {
+                register_a = register_x;
+                update_zero_and_negative_flags(register_a);
+            }
+
+            case CPUOpcodeMnemonics::TXS:
+            {
+                stack_pointer = register_x;
+            }
+
+            case CPUOpcodeMnemonics::TYA:
+            {
+                register_a = register_y;
+                update_zero_and_negative_flags(register_a);
+            }
+
             case CPUOpcodeMnemonics::BRK:
             {
                 return;

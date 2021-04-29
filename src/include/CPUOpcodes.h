@@ -81,6 +81,11 @@ namespace mysn
 
         TAX,
         TAY,
+        TSX,
+        TXA,
+        TXS,
+        TYA,
+
     };
 
     class CPUOpcodes
