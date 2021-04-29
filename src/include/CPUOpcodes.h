@@ -67,6 +67,7 @@ namespace mysn
         ROR,
 
         RTI,
+        RTS,
 
         TAX,
         STA,

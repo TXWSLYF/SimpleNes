@@ -358,6 +358,12 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::RTS:
+            {
+                program_counter = stack_pop_u16() + 1;
+                break;
+            }
+
             case CPUOpcodeMnemonics::STA:
             {
                 sta(mode);
