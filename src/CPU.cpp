@@ -307,6 +307,12 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::PLA:
+            {
+                pla();
+                break;
+            }
+
             case CPUOpcodeMnemonics::STA:
             {
                 sta(mode);
@@ -530,6 +536,12 @@ namespace mysn
         update_zero_and_negative_flags(register_a);
     }
 
+    void CPU::pla()
+    {
+        register_a = stack_pop();
+        update_zero_and_negative_flags(register_a);
+    }
+
     void CPU::sta(AddressingMode mode)
     {
         auto addr = get_operand_address(mode);
@@ -565,6 +577,11 @@ namespace mysn
     {
         mem_write(0x100 | stack_pointer, data);
         --stack_pointer; //Hardware stacks grow downward!
+    }
+
+    Byte CPU::stack_pop()
+    {
+        return mem_read(0x100 | ++stack_pointer);
     }
 
     void CPU::update_zero_and_negative_flags(Byte result)

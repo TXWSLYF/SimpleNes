@@ -60,6 +60,7 @@ namespace mysn
 
         PHA,
         PHP,
+        PLA,
 
         TAX,
         STA,

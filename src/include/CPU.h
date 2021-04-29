@@ -81,12 +81,14 @@ namespace mysn
         void lsr_accumulator();
         void lsr(AddressingMode mode);
         void ora(AddressingMode mode);
+        void pla();
         void sta(AddressingMode mode);
         void tax();
         void inx();
         void iny();
         void stack_push_u16(Address addr);
         void stack_push(Byte data);
+        Byte stack_pop();
 
         DobuleByte mem_read_u16(Address addr);
         void mem_write_u16(Address addr, DobuleByte data);
