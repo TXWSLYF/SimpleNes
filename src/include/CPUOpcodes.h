@@ -75,8 +75,11 @@ namespace mysn
         SED,
         SEI,
 
-        TAX,
         STA,
+        STX,
+        STY,
+
+        TAX,
     };
 
     class CPUOpcodes

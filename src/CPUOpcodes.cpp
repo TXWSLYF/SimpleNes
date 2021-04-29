@@ -180,13 +180,22 @@ namespace mysn
         {0xf8, CPUOpcodes(0xf8, CPUOpcodeMnemonics::SED, 1, 2, AddressingMode::NoneAddressing)},
         {0x78, CPUOpcodes(0x78, CPUOpcodeMnemonics::SEI, 1, 2, AddressingMode::NoneAddressing)},
 
-        {0xaa, CPUOpcodes(0xaa, CPUOpcodeMnemonics::TAX, 1, 2, AddressingMode::NoneAddressing)},
-
         {0x85, CPUOpcodes(0x85, CPUOpcodeMnemonics::STA, 2, 3, AddressingMode::ZeroPage)},
         {0x95, CPUOpcodes(0x95, CPUOpcodeMnemonics::STA, 2, 4, AddressingMode::ZeroPage_X)},
         {0x8d, CPUOpcodes(0x8d, CPUOpcodeMnemonics::STA, 3, 4, AddressingMode::Absolute)},
         {0x9d, CPUOpcodes(0x9d, CPUOpcodeMnemonics::STA, 3, 5, AddressingMode::Absolute_X)},
         {0x99, CPUOpcodes(0x99, CPUOpcodeMnemonics::STA, 3, 5, AddressingMode::Absolute_Y)},
         {0x81, CPUOpcodes(0x81, CPUOpcodeMnemonics::STA, 2, 6, AddressingMode::Indirect_X)},
-        {0x91, CPUOpcodes(0x91, CPUOpcodeMnemonics::STA, 2, 6, AddressingMode::Indirect_Y)}};
+        {0x91, CPUOpcodes(0x91, CPUOpcodeMnemonics::STA, 2, 6, AddressingMode::Indirect_Y)},
+
+        {0x86, CPUOpcodes(0x86, CPUOpcodeMnemonics::STX, 2, 3, AddressingMode::ZeroPage)},
+        {0x96, CPUOpcodes(0x96, CPUOpcodeMnemonics::STX, 2, 4, AddressingMode::ZeroPage_Y)},
+        {0x8e, CPUOpcodes(0x8e, CPUOpcodeMnemonics::STX, 3, 4, AddressingMode::Absolute)},
+
+        {0x84, CPUOpcodes(0x84, CPUOpcodeMnemonics::STY, 2, 3, AddressingMode::ZeroPage)},
+        {0x94, CPUOpcodes(0x94, CPUOpcodeMnemonics::STY, 2, 4, AddressingMode::ZeroPage_X)},
+        {0x8c, CPUOpcodes(0x8c, CPUOpcodeMnemonics::STY, 3, 4, AddressingMode::Absolute)},
+
+        {0xaa, CPUOpcodes(0xaa, CPUOpcodeMnemonics::TAX, 1, 2, AddressingMode::NoneAddressing)},
+    };
 }

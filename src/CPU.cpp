@@ -394,6 +394,20 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::STX:
+            {
+                auto addr = get_operand_address(mode);
+                mem_write(addr, register_x);
+                break;
+            }
+
+            case CPUOpcodeMnemonics::STY:
+            {
+                auto addr = get_operand_address(mode);
+                mem_write(addr, register_y);
+                break;
+            }
+
             case CPUOpcodeMnemonics::TAX:
             {
                 tax();
