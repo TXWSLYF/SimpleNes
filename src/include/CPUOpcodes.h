@@ -71,6 +71,10 @@ namespace mysn
 
         SBC,
 
+        SEC,
+        SED,
+        SEI,
+
         TAX,
         STA,
     };

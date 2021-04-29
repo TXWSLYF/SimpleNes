@@ -370,6 +370,24 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::SEC:
+            {
+                set_flag(CpuFlags::Carry);
+                break;
+            }
+
+            case CPUOpcodeMnemonics::SED:
+            {
+                set_flag(CpuFlags::Decimal_Mode);
+                break;
+            }
+
+            case CPUOpcodeMnemonics::SEI:
+            {
+                set_flag(CpuFlags::Interrupt_Disable);
+                break;
+            }
+
             case CPUOpcodeMnemonics::STA:
             {
                 sta(mode);
