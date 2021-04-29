@@ -414,6 +414,13 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::TAY:
+            {
+                register_y = register_a;
+                update_zero_and_negative_flags(register_y);
+                break;
+            }
+
             case CPUOpcodeMnemonics::BRK:
             {
                 return;

@@ -197,5 +197,6 @@ namespace mysn
         {0x8c, CPUOpcodes(0x8c, CPUOpcodeMnemonics::STY, 3, 4, AddressingMode::Absolute)},
 
         {0xaa, CPUOpcodes(0xaa, CPUOpcodeMnemonics::TAX, 1, 2, AddressingMode::NoneAddressing)},
+        {0xa8, CPUOpcodes(0xa8, CPUOpcodeMnemonics::TAY, 1, 2, AddressingMode::NoneAddressing)},
     };
 }

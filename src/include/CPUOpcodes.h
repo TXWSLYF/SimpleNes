@@ -80,6 +80,7 @@ namespace mysn
         STY,
 
         TAX,
+        TAY,
     };
 
     class CPUOpcodes
