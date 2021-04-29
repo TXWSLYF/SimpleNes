@@ -299,6 +299,14 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::PHP:
+            {
+                stack_push(status);
+                set_flag(CpuFlags::Break);
+                set_flag(CpuFlags::Break2);
+                break;
+            }
+
             case CPUOpcodeMnemonics::STA:
             {
                 sta(mode);

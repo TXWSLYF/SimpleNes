@@ -59,6 +59,7 @@ namespace mysn
         ORA,
 
         PHA,
+        PHP,
 
         TAX,
         STA,

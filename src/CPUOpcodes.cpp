@@ -148,6 +148,7 @@ namespace mysn
         {0x11, CPUOpcodes(0x11, CPUOpcodeMnemonics::ORA, 2, 5 /*+1 if page crossed*/, AddressingMode::Indirect_Y)},
 
         {0x48, CPUOpcodes(0x48, CPUOpcodeMnemonics::PHA, 1, 3, AddressingMode::NoneAddressing)},
+        {0x08, CPUOpcodes(0x08, CPUOpcodeMnemonics::PHP, 1, 3, AddressingMode::NoneAddressing)},
 
         {0xaa, CPUOpcodes(0xaa, CPUOpcodeMnemonics::TAX, 1, 2, AddressingMode::NoneAddressing)},
 
