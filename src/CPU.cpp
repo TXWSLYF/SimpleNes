@@ -9,6 +9,7 @@ namespace mysn
                  register_a(0),
                  register_x(0),
                  register_y(0),
+                 stack_pointer(0xfd),
                  status(0),
                  memory(0xFFFF, 0){};
 
@@ -243,6 +244,13 @@ namespace mysn
                 break;
             }
 
+            case CPUOpcodeMnemonics::JSR:
+            {
+                stack_push_u16(program_counter + 1);
+                auto target_address = mem_read_u16(program_counter);
+                program_counter = target_address;
+            }
+
             case CPUOpcodeMnemonics::LDA:
             {
                 lda(mode);
@@ -465,6 +473,18 @@ namespace mysn
     {
         ++register_y;
         update_zero_and_negative_flags(register_y);
+    }
+
+    void CPU::stack_push_u16(Address addr)
+    {
+        stack_push(static_cast<Byte>((addr) >> 8));
+        stack_push(static_cast<Byte>(addr));
+    };
+
+    void CPU::stack_push(Byte data)
+    {
+        mem_write(0x100 | stack_pointer, data);
+        --stack_pointer; //Hardware stacks grow downward!
     }
 
     void CPU::update_zero_and_negative_flags(Byte result)

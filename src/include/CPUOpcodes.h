@@ -48,6 +48,7 @@ namespace mysn
         INX,
         INY,
         JMP,
+        JSR,
 
         TAX,
         LDA,

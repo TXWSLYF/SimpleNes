@@ -81,6 +81,8 @@ namespace mysn
         void tax();
         void inx();
         void iny();
+        void stack_push_u16(Address addr);
+        void stack_push(Byte data);
 
         DobuleByte mem_read_u16(Address addr);
         void mem_write_u16(Address addr, DobuleByte data);
@@ -98,6 +100,7 @@ namespace mysn
         Byte register_a;
         Byte register_x;
         Byte register_y;
+        Byte stack_pointer;
 
         // Status flags
         Byte status;
